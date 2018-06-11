@@ -29,13 +29,24 @@ namespace WallpaperChanger
         const int SendwinIniChange = 0x02;
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
-
+        int i=0;
         public void Set()
         {
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Control Panel\Desktop", true);
             Filename = labelfilename.Text;
+            string[] files = Directory.GetFiles("C:\\Users\\Егардоз\\Pictures\\обои");
+            Filename = files[i % files.Length];
 
+            Image img = Image.FromFile(Filename);
+            while (!(img.Size.Height > 0 && img.Size.Width > img.Size.Height))
+            {
+                i++;
+                Filename = files[i % files.Length];
+                img = Image.FromFile(Filename);
+            }
+            labelfilename.Text = Filename;
             SystemParametersInfo(SetDeskwallpaper, 0, Filename, UpdateIniFile | SendwinIniChange);
+            i++;
         }
 
 

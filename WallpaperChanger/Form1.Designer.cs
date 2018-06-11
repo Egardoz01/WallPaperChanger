@@ -31,13 +31,14 @@
             this.components = new System.ComponentModel.Container();
             this.labelfilename = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Timer = new System.Windows.Forms.Timer(this.components);
+            this.Interval = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // labelfilename
             // 
             this.labelfilename.AutoSize = true;
-            this.labelfilename.Location = new System.Drawing.Point(53, 192);
+            this.labelfilename.Location = new System.Drawing.Point(12, 227);
             this.labelfilename.Name = "labelfilename";
             this.labelfilename.Size = new System.Drawing.Size(262, 13);
             this.labelfilename.TabIndex = 0;
@@ -54,17 +55,27 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // timer1
+            // Timer
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.Timer.Enabled = true;
+            this.Timer.Interval = 1000;
+            this.Timer.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // Interval
+            // 
+            this.Interval.FormattingEnabled = true;
+            this.Interval.Location = new System.Drawing.Point(247, 46);
+            this.Interval.Name = "Interval";
+            this.Interval.Size = new System.Drawing.Size(179, 21);
+            this.Interval.TabIndex = 2;
+            this.Interval.SelectedIndexChanged += new System.EventHandler(this.Interval_SelectedIndexChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(471, 261);
+            this.Controls.Add(this.Interval);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.labelfilename);
             this.Name = "Form1";
@@ -78,7 +89,8 @@
         #endregion
         private System.Windows.Forms.Button button1;
         public System.Windows.Forms.Label labelfilename;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer Timer;
+        private System.Windows.Forms.ComboBox Interval;
     }
 }
 

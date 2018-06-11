@@ -21,7 +21,10 @@ namespace WallpaperChanger
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            Interval.Items.Add("1 sec");
+            Interval.Items.Add("3 hours");
+            Interval.Items.Add("6 hours");
+            Interval.Items.Add("24 hours");
         }
         string Filename;
         const  int SetDeskwallpaper=20;
@@ -63,6 +66,27 @@ namespace WallpaperChanger
         private void timer1_Tick(object sender, EventArgs e)
         {
             Set();
+        }
+
+        private void Interval_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Interval.Text == "1 sec")
+            {
+                Timer.Interval = 1000;
+            }
+            if (Interval.Text == "3 hours")
+            {
+                Timer.Interval = 10800000;
+            }
+            if (Interval.Text == "6 hours")
+            {
+                Timer.Interval = 21600000;
+            }
+            if (Interval.Text == "24 hours")
+            {
+                Timer.Interval = 86400000;
+            }
+
         }
     }
 }

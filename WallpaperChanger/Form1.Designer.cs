@@ -29,68 +29,62 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.labelfilename = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            System.Windows.Forms.Button btnStart;
+            System.Windows.Forms.Button btnStop;
             this.Timer = new System.Windows.Forms.Timer(this.components);
-            this.Interval = new System.Windows.Forms.ComboBox();
+            this.cbInterval = new System.Windows.Forms.ComboBox();
+            btnStart = new System.Windows.Forms.Button();
+            btnStop = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // labelfilename
+            // btnStart
             // 
-            this.labelfilename.AutoSize = true;
-            this.labelfilename.Location = new System.Drawing.Point(12, 227);
-            this.labelfilename.Name = "labelfilename";
-            this.labelfilename.Size = new System.Drawing.Size(262, 13);
-            this.labelfilename.TabIndex = 0;
-            this.labelfilename.Text = "C:\\Users\\Егардоз\\Pictures\\обои\\arsenii\'s funetal.jpg";
-            this.labelfilename.Click += new System.EventHandler(this.labelfilename_Click);
+            btnStart.Location = new System.Drawing.Point(207, 12);
+            btnStart.Name = "btnStart";
+            btnStart.Size = new System.Drawing.Size(124, 31);
+            btnStart.TabIndex = 3;
+            btnStart.Text = "Start";
+            btnStart.UseVisualStyleBackColor = true;
+            btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // button1
+            // btnStop
             // 
-            this.button1.Location = new System.Drawing.Point(8, 25);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(188, 115);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Vjuh";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            btnStop.Location = new System.Drawing.Point(207, 57);
+            btnStop.Name = "btnStop";
+            btnStop.Size = new System.Drawing.Size(124, 31);
+            btnStop.TabIndex = 4;
+            btnStop.Text = "Stop";
+            btnStop.UseVisualStyleBackColor = true;
+            btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // Timer
+            // cbInterval
             // 
-            this.Timer.Enabled = true;
-            this.Timer.Interval = 1000;
-            this.Timer.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // Interval
-            // 
-            this.Interval.FormattingEnabled = true;
-            this.Interval.Location = new System.Drawing.Point(247, 46);
-            this.Interval.Name = "Interval";
-            this.Interval.Size = new System.Drawing.Size(179, 21);
-            this.Interval.TabIndex = 2;
-            this.Interval.SelectedIndexChanged += new System.EventHandler(this.Interval_SelectedIndexChanged);
+            this.cbInterval.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbInterval.FormattingEnabled = true;
+            this.cbInterval.Location = new System.Drawing.Point(12, 12);
+            this.cbInterval.Name = "cbInterval";
+            this.cbInterval.Size = new System.Drawing.Size(179, 21);
+            this.cbInterval.TabIndex = 2;
+            this.cbInterval.SelectedIndexChanged += new System.EventHandler(this.cbInterval_SelectedIndexChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(471, 261);
-            this.Controls.Add(this.Interval);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.labelfilename);
+            this.ClientSize = new System.Drawing.Size(345, 100);
+            this.Controls.Add(btnStop);
+            this.Controls.Add(btnStart);
+            this.Controls.Add(this.cbInterval);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Wallpaper Changer";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button button1;
-        public System.Windows.Forms.Label labelfilename;
         private System.Windows.Forms.Timer Timer;
-        private System.Windows.Forms.ComboBox Interval;
+        private System.Windows.Forms.ComboBox cbInterval;
     }
 }
 

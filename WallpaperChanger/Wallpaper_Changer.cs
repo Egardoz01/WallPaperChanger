@@ -17,7 +17,12 @@ namespace WallpaperChanger
         const int SendwinIniChange = 0x02;
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
-        
+
+        public class Option
+        {
+            public bool Value { get; set; }
+        }
+
         public enum Interval
         {
             OneSecond = 1,
@@ -36,9 +41,9 @@ namespace WallpaperChanger
         private string m_localFolder;
         private FileSystemWatcher m_watcher = new FileSystemWatcher();
         private Timer m_timer;
-        private int m_current;
-
-        public Wallpaper_Changer(Interval interval)
+        private int m_current=0;
+        private Option[] m_options;
+        public Wallpaper_Changer(Interval interval, Option[] options)
         {
             m_interval = interval;
             m_assetsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Packages\\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\\LocalState\\Assets");
@@ -47,6 +52,7 @@ namespace WallpaperChanger
             {
                 Directory.CreateDirectory(m_localFolder);
             }
+            m_options = options;
         }
 
         public void Start()
@@ -55,6 +61,11 @@ namespace WallpaperChanger
             {
                 throw new FileNotFoundException("Assets folder not found");
             }
+            if (m_options[0].Value)
+            {
+                setImg();
+            }
+
             syncFolders();
 
             m_watcher.Path = m_assetsFolder;
@@ -83,8 +94,13 @@ namespace WallpaperChanger
 
         private void M_timer_Elapsed(object sender, ElapsedEventArgs e)
         {
+            setImg();
+        }
+
+        private void setImg()
+        {
             string[] files = Directory.GetFiles(m_localFolder);
-            
+
             int cnt = 0;
             while (true)
             {
@@ -105,9 +121,13 @@ namespace WallpaperChanger
                 }
             }
         }
-        
+
         public void Stop()
         {
+            if (m_options[2].Value)
+            {
+                setImg();
+            }
             m_watcher.EnableRaisingEvents = false;
             m_timer.Stop();
         }

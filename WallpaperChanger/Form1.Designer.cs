@@ -33,6 +33,9 @@
             System.Windows.Forms.Button btnStop;
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.cbInterval = new System.Windows.Forms.ComboBox();
+            this.cbChangeWithStart = new System.Windows.Forms.CheckBox();
+            this.cbRememberSeenImg = new System.Windows.Forms.CheckBox();
+            this.cbChangeWithStop = new System.Windows.Forms.CheckBox();
             btnStart = new System.Windows.Forms.Button();
             btnStop = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -67,11 +70,47 @@
             this.cbInterval.TabIndex = 2;
             this.cbInterval.SelectedIndexChanged += new System.EventHandler(this.cbInterval_SelectedIndexChanged);
             // 
+            // cbChangeWithStart
+            // 
+            this.cbChangeWithStart.AutoSize = true;
+            this.cbChangeWithStart.Location = new System.Drawing.Point(12, 65);
+            this.cbChangeWithStart.Name = "cbChangeWithStart";
+            this.cbChangeWithStart.Size = new System.Drawing.Size(107, 17);
+            this.cbChangeWithStart.TabIndex = 5;
+            this.cbChangeWithStart.Text = "change with start";
+            this.cbChangeWithStart.UseVisualStyleBackColor = true;
+            this.cbChangeWithStart.CheckedChanged += new System.EventHandler(this.cbChangeWithStart_CheckedChanged);
+            // 
+            // cbRememberSeenImg
+            // 
+            this.cbRememberSeenImg.AutoSize = true;
+            this.cbRememberSeenImg.Location = new System.Drawing.Point(12, 89);
+            this.cbRememberSeenImg.Name = "cbRememberSeenImg";
+            this.cbRememberSeenImg.Size = new System.Drawing.Size(134, 17);
+            this.cbRememberSeenImg.TabIndex = 6;
+            this.cbRememberSeenImg.Text = "remember seen images";
+            this.cbRememberSeenImg.UseVisualStyleBackColor = true;
+            this.cbRememberSeenImg.CheckedChanged += new System.EventHandler(this.cbRememberSeenImg_CheckedChanged);
+            // 
+            // cbChangeWithStop
+            // 
+            this.cbChangeWithStop.AutoSize = true;
+            this.cbChangeWithStop.Location = new System.Drawing.Point(12, 113);
+            this.cbChangeWithStop.Name = "cbChangeWithStop";
+            this.cbChangeWithStop.Size = new System.Drawing.Size(107, 17);
+            this.cbChangeWithStop.TabIndex = 7;
+            this.cbChangeWithStop.Text = "change with stop";
+            this.cbChangeWithStop.UseVisualStyleBackColor = true;
+            this.cbChangeWithStop.CheckedChanged += new System.EventHandler(this.cbChangeWithStop_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(345, 100);
+            this.ClientSize = new System.Drawing.Size(350, 262);
+            this.Controls.Add(this.cbChangeWithStop);
+            this.Controls.Add(this.cbRememberSeenImg);
+            this.Controls.Add(this.cbChangeWithStart);
             this.Controls.Add(btnStop);
             this.Controls.Add(btnStart);
             this.Controls.Add(this.cbInterval);
@@ -79,12 +118,16 @@
             this.Text = "Wallpaper Changer";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Timer Timer;
         private System.Windows.Forms.ComboBox cbInterval;
+        private System.Windows.Forms.CheckBox cbChangeWithStart;
+        private System.Windows.Forms.CheckBox cbRememberSeenImg;
+        private System.Windows.Forms.CheckBox cbChangeWithStop;
     }
 }
 

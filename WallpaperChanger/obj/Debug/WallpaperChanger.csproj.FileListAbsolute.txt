@@ -1,9 +1,0 @@
-c:\users\егардоз\documents\visual studio 2017\Projects\WallpaperChanger\WallpaperChanger\bin\Debug\WallpaperChanger.exe.config
-c:\users\егардоз\documents\visual studio 2017\Projects\WallpaperChanger\WallpaperChanger\bin\Debug\WallpaperChanger.exe
-c:\users\егардоз\documents\visual studio 2017\Projects\WallpaperChanger\WallpaperChanger\bin\Debug\WallpaperChanger.pdb
-c:\users\егардоз\documents\visual studio 2017\Projects\WallpaperChanger\WallpaperChanger\obj\Debug\WallpaperChanger.csprojResolveAssemblyReference.cache
-c:\users\егардоз\documents\visual studio 2017\Projects\WallpaperChanger\WallpaperChanger\obj\Debug\WallpaperChanger.Form1.resources
-c:\users\егардоз\documents\visual studio 2017\Projects\WallpaperChanger\WallpaperChanger\obj\Debug\WallpaperChanger.Properties.Resources.resources
-c:\users\егардоз\documents\visual studio 2017\Projects\WallpaperChanger\WallpaperChanger\obj\Debug\WallpaperChanger.csproj.GenerateResource.Cache
-c:\users\егардоз\documents\visual studio 2017\Projects\WallpaperChanger\WallpaperChanger\obj\Debug\WallpaperChanger.exe
-c:\users\егардоз\documents\visual studio 2017\Projects\WallpaperChanger\WallpaperChanger\obj\Debug\WallpaperChanger.pdb

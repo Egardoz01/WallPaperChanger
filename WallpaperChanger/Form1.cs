@@ -25,11 +25,8 @@ namespace WallpaperChanger
             }
         }
 
-
-
         Wallpaper_Changer m_changer;
-        static Wallpaper_Changer.Option m_option = new Wallpaper_Changer.Option() { Value = false };
-        Wallpaper_Changer.Option[] m_options = new Wallpaper_Changer.Option[] { m_option, m_option, m_option };
+
         public Form1()
         {
             InitializeComponent();
@@ -51,7 +48,13 @@ namespace WallpaperChanger
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            m_changer = new Wallpaper_Changer((cbInterval.SelectedItem as Interval).Value, m_options);
+            m_changer = new Wallpaper_Changer((cbInterval.SelectedItem as Interval).Value, 
+                new Wallpaper_Changer.Options {
+                   ChangeOnStart = cbChangeWithStart.Checked,
+                   ChangeOnStop = cbChangeWithStop.Checked,
+                   ChangeOnNewInterval = cbChangeWithNewInterval.Checked,
+                   RememberSeen = cbRememberSeenImg.Checked
+                });
             m_changer.Start();
         }
 
@@ -70,21 +73,6 @@ namespace WallpaperChanger
             {
                 m_changer.ChangeInterval((cbInterval.SelectedItem as Interval).Value);
             }
-        }
-
-        private void cbChangeWithStart_CheckedChanged(object sender, EventArgs e)
-        {
-            m_options[0].Value = cbChangeWithStart.Checked;
-        }
-
-        private void cbRememberSeenImg_CheckedChanged(object sender, EventArgs e)
-        {
-            m_options[1].Value = cbRememberSeenImg.Checked;
-        }
-
-        private void cbChangeWithStop_CheckedChanged(object sender, EventArgs e)
-        {
-            m_options[2].Value = cbChangeWithStop.Checked;
         }
     }
 }

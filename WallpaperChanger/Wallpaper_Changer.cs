@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -18,9 +19,12 @@ namespace WallpaperChanger
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
 
-        public class Option
+        public class Options
         {
-            public bool Value { get; set; }
+            public bool ChangeOnStart { get; set; }
+            public bool ChangeOnStop { get; set; }
+            public bool ChangeOnNewInterval { get; set; }
+            public bool RememberSeen { get; set; }
         }
 
         public enum Interval
@@ -34,16 +38,16 @@ namespace WallpaperChanger
             HalfDay = 12 * 60 * 60
         }
 
-        private const int MIN_WIDTH = 500; 
-        private const string SOFTWARE_NAME = "Wallpaper_Changer";
+        private static readonly int MIN_WIDTH = 500; 
+        private static readonly string SOFTWARE_NAME = "Wallpaper_Changer";
         private Interval m_interval;
         private string m_assetsFolder;
         private string m_localFolder;
         private FileSystemWatcher m_watcher = new FileSystemWatcher();
         private Timer m_timer;
-        private int m_current=0;
-        private Option[] m_options;
-        public Wallpaper_Changer(Interval interval, Option[] options)
+        private int m_current;
+        private Options m_options;
+        public Wallpaper_Changer(Interval interval, Options options)
         {
             m_interval = interval;
             m_assetsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Packages\\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\\LocalState\\Assets");
@@ -61,20 +65,19 @@ namespace WallpaperChanger
             {
                 throw new FileNotFoundException("Assets folder not found");
             }
-            if (m_options[0].Value)
+
+            syncFolders();
+
+            if (m_options.ChangeOnStart)
             {
                 setImg();
             }
-
-            syncFolders();
 
             m_watcher.Path = m_assetsFolder;
             m_watcher.Changed += M_watcher_Changed;
             m_watcher.EnableRaisingEvents = true;
 
             setTimer();
-
-
         }
 
         private void setTimer()
@@ -88,6 +91,12 @@ namespace WallpaperChanger
         {
             m_timer.Stop();
             m_interval = interval;
+
+            if (m_options.ChangeOnNewInterval)
+            {
+                setImg();
+            }
+
             setTimer();
         }
 
@@ -108,14 +117,22 @@ namespace WallpaperChanger
 
                 if (isValidImage(filename))
                 {
-                    SystemParametersInfo(SetDeskwallpaper, 0, filename, UpdateIniFile | SendwinIniChange);
-                    m_current++;
-                    return;
+                    if (checkImageSeen(filename))
+                    {
+                        SystemParametersInfo(SetDeskwallpaper, 0, filename, UpdateIniFile | SendwinIniChange);
+                        m_current++;
+                        return;
+                    }
                 }
 
                 cnt++;
                 m_current++;
-                if (cnt > 3 * files.Length)
+                if (cnt > 2 * files.Length)
+                {
+                    dropFiles();
+                }
+
+                if (cnt > 4 * files.Length)
                 {
                     break;
                 }
@@ -124,10 +141,11 @@ namespace WallpaperChanger
 
         public void Stop()
         {
-            if (m_options[2].Value)
+            if (m_options.ChangeOnStop)
             {
                 setImg();
             }
+
             m_watcher.EnableRaisingEvents = false;
             m_timer.Stop();
         }
@@ -164,10 +182,28 @@ namespace WallpaperChanger
                     File.Copy(file, newFileName);
                 }
             }
-            
         }
 
-        private bool isValidImage(string file)
+        private bool checkImageSeen(string file)
+        {
+            if(!m_options.RememberSeen)
+            {
+                return true;
+            }
+
+            HashSet<string> files = loadFiles();
+            if(files.Contains(file))
+            {
+                return false;
+            }
+
+            files.Add(file);
+            saveFiles(files);
+
+            return true;
+        }
+
+        private static bool isValidImage(string file)
         {
             try
             {
@@ -180,5 +216,37 @@ namespace WallpaperChanger
 
             return false;
         }
+
+        private static void dropFiles()
+        {
+            if (Registry.CurrentUser.CreateSubKey("Software").GetSubKeyNames().Contains(SOFTWARE_NAME))
+            {
+                Registry.CurrentUser.DeleteSubKey(string.Format("Software\\{0}", SOFTWARE_NAME));
+            }
+        }
+
+        private static HashSet<string> loadFiles()
+        {
+            HashSet<string> result = new HashSet<string>();
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\{0}", SOFTWARE_NAME));
+            foreach(var name in key.GetValueNames())
+            {
+                result.Add(key.GetValue(name).ToString());
+            }
+
+            return result;
+        }
+
+        private static void saveFiles(HashSet<string> files)
+        {
+            dropFiles();
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\{0}", SOFTWARE_NAME));
+            int i = 1;
+            foreach(string file in files)
+            {
+                key.SetValue(string.Format("file{0}", i++), file);
+            }
+        }
+
     }
 }

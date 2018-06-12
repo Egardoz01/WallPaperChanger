@@ -36,6 +36,7 @@
             this.cbChangeWithStart = new System.Windows.Forms.CheckBox();
             this.cbRememberSeenImg = new System.Windows.Forms.CheckBox();
             this.cbChangeWithStop = new System.Windows.Forms.CheckBox();
+            this.cbChangeWithNewInterval = new System.Windows.Forms.CheckBox();
             btnStart = new System.Windows.Forms.Button();
             btnStop = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -79,7 +80,6 @@
             this.cbChangeWithStart.TabIndex = 5;
             this.cbChangeWithStart.Text = "change with start";
             this.cbChangeWithStart.UseVisualStyleBackColor = true;
-            this.cbChangeWithStart.CheckedChanged += new System.EventHandler(this.cbChangeWithStart_CheckedChanged);
             // 
             // cbRememberSeenImg
             // 
@@ -90,7 +90,6 @@
             this.cbRememberSeenImg.TabIndex = 6;
             this.cbRememberSeenImg.Text = "remember seen images";
             this.cbRememberSeenImg.UseVisualStyleBackColor = true;
-            this.cbRememberSeenImg.CheckedChanged += new System.EventHandler(this.cbRememberSeenImg_CheckedChanged);
             // 
             // cbChangeWithStop
             // 
@@ -101,13 +100,23 @@
             this.cbChangeWithStop.TabIndex = 7;
             this.cbChangeWithStop.Text = "change with stop";
             this.cbChangeWithStop.UseVisualStyleBackColor = true;
-            this.cbChangeWithStop.CheckedChanged += new System.EventHandler(this.cbChangeWithStop_CheckedChanged);
+            // 
+            // cbChangeWithNewInterval
+            // 
+            this.cbChangeWithNewInterval.AutoSize = true;
+            this.cbChangeWithNewInterval.Location = new System.Drawing.Point(12, 137);
+            this.cbChangeWithNewInterval.Name = "cbChangeWithNewInterval";
+            this.cbChangeWithNewInterval.Size = new System.Drawing.Size(144, 17);
+            this.cbChangeWithNewInterval.TabIndex = 8;
+            this.cbChangeWithNewInterval.Text = "change with new interval";
+            this.cbChangeWithNewInterval.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(350, 262);
+            this.Controls.Add(this.cbChangeWithNewInterval);
             this.Controls.Add(this.cbChangeWithStop);
             this.Controls.Add(this.cbRememberSeenImg);
             this.Controls.Add(this.cbChangeWithStart);
@@ -128,6 +137,7 @@
         private System.Windows.Forms.CheckBox cbChangeWithStart;
         private System.Windows.Forms.CheckBox cbRememberSeenImg;
         private System.Windows.Forms.CheckBox cbChangeWithStop;
+        private System.Windows.Forms.CheckBox cbChangeWithNewInterval;
     }
 }
 
